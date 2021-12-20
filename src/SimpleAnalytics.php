@@ -13,6 +13,11 @@ class SimpleAnalytics
         $this->client = $client;
     }
 
+    public function call($uri, $params = [], $method = 'GET')
+    {
+        return $this->client->request($method, $uri, $params);
+    }
+
     public function stats(): string
     {
         $uri = sprintf('%s.json', config('simple-analytics.website'));
