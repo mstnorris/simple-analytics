@@ -1,0 +1,41 @@
+{
+  "name": "mstnorris/simple-analytics",
+  "description": "An API client for Simple Analytics",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Michael Norris",
+      "email": "hello@michaelnorris.co.uk"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "guzzlehttp/guzzle": "^7.4",
+    "illuminate/support": "^8.76"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mstnorris\\SimpleAnalytics\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mstnorris\\SimpleAnalytics\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Mstnorris\\SimpleAnalytics\\SimpleAnalyticsServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "minimum-stability": "stable"
+}
