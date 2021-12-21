@@ -13,12 +13,19 @@ class SimpleAnalytics
         $this->client = $client;
     }
 
-    public function call($uri, $params = [], $method = 'GET')
+    protected function toResourceResponse(\GuzzleHttp\Psr7\Response $response): Response
     {
-        return $this->client->request($method, $uri, $params);
+        return new Response($response);
     }
 
-    public function stats(): string
+    public function call($uri, $params = [], $method = 'GET'): Response
+    {
+        $response = $this->client->request($method, $uri, $params);
+
+        return $this->toResourceResponse($response);
+    }
+
+    public function stats(): Response
     {
         $uri = sprintf('%s.json', config('simple-analytics.website'));
 
@@ -32,7 +39,7 @@ class SimpleAnalytics
 
         $response = $this->client->request('GET', $uri, $params);
 
-        return json_encode($response);
+        return $this->toResourceResponse($response);
     }
 
 }
