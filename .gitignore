@@ -1,3 +1,5 @@
 /vendor/
 .idea/
+.phpunit.cache/
 .phpintel
+.phpunit.result.cache

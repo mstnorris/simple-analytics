@@ -19,11 +19,13 @@ class SimpleAnalyticsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        $this->publishes([
-            __DIR__ . '/../config/simple-analytics.php' => config_path('simple-analytics.php'),
-        ], 'simple-analytics');
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/simple-analytics.php' => config_path('simple-analytics.php'),
+            ], 'config');
+        }
     }
 
     /**
@@ -31,9 +33,9 @@ class SimpleAnalyticsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->app->singleton(SimpleAnalytics::class, function () {
+        $this->app->singleton('simple-analytics', function () {
             $baseUri = config('simple-analytics.base-uri', 'https://simpleanalytics.com');
             $userId = config('simple-analytics.user-id');
             $apiKey = config('simple-analytics.api-key');

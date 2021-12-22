@@ -1,8 +1,6 @@
 <?php
 
-namespace Tests;
-
-use PHPUnit\Framework\TestCase;
+namespace Mstnorris\SimpleAnalytics\Tests;
 
 class SimpleAnalyticsTest extends TestCase
 {

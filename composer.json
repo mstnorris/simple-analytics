@@ -1,6 +1,17 @@
 {
   "name": "mstnorris/simple-analytics",
-  "description": "An API client for Simple Analytics",
+  "description": "Use Simple Analytics in your Laravel application",
+  "keywords": [
+    "mstnorris",
+    "simple-analytics",
+    "analytics",
+    "visitors",
+    "views",
+    "page-views",
+    "stats",
+    "statistics"
+  ],
+  "homepage": "https://github.com/mstnorris/simple-analytics",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -15,7 +26,8 @@
     "illuminate/support": "^8.76"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.5"
+    "phpunit/phpunit": "^9.5",
+    "orchestra/testbench": "^6.23"
   },
   "autoload": {
     "psr-4": {
@@ -27,15 +39,25 @@
       "Mstnorris\\SimpleAnalytics\\Tests\\": "tests/"
     }
   },
+  "config": {
+    "sort-packages": true
+  },
   "extra": {
     "laravel": {
       "providers": [
         "Mstnorris\\SimpleAnalytics\\SimpleAnalyticsServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "SimpleAnalytics": "Mstnorris\\SimpleAnalytics\\SimpleAnalyticsFacade"
+      }
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit"
+    "test": "vendor/bin/phpunit",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+    "post-autoload-dump": [
+      "@php ./vendor/bin/testbench package:discover --ansi"
+    ]
   },
   "minimum-stability": "stable"
 }

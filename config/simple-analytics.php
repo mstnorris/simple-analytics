@@ -1,4 +1,5 @@
 <?php
+
 return [
     'api-version' => env('SIMPLE_ANALYTICS_API_VERSION'),
     'base-uri'    => env('SIMPLE_ANALYTICS_BASE_URI'),
