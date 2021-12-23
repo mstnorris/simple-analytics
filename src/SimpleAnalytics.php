@@ -28,7 +28,7 @@ class SimpleAnalytics
             ]
         ];
 
-        return $this->client->request($method, $uri, array_merge($defaultParams, $params));
+        return $this->client->request($method, $uri, array_replace_recursive($defaultParams, $params));
     }
 
     public function stats(): ResponseInterface
