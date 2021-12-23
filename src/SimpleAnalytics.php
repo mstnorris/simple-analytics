@@ -47,7 +47,7 @@ class SimpleAnalytics
 
         $response = $this->call(null, $params);
 
-        return $response->getBody()['visitors'];
+        return json_decode($response->getBody(), true)['visitors'];
     }
 
 }
