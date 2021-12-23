@@ -35,7 +35,7 @@ class SimpleAnalyticsServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('simple-analytics', function () {
+        $this->app->singleton(SimpleAnalytics::class, function () {
             $baseUri = config('simple-analytics.base-uri', 'https://simpleanalytics.com');
             $userId = config('simple-analytics.user-id');
             $apiKey = config('simple-analytics.api-key');
