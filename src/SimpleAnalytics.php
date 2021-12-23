@@ -23,8 +23,8 @@ class SimpleAnalytics
                 'version' => config('simple-analytics.api-version', 5),
                 'fields'  => 'visitors',
                 'info'    => 'false',
-                'start'   => '2021-11-17',
-                'end'     => '2021-12-17'
+                'start'   => now()->subMonth()->toDateString(),
+                'end'     => now()->endOfDay()->toDateString()
             ]
         ];
 
@@ -36,15 +36,18 @@ class SimpleAnalytics
         return $this->call();
     }
 
-    public function today(): ResponseInterface
+    public function today(): int
     {
         $params = [
             'query' => [
-                'start'   => now()->toDateString(),
-                'end'     => now()->toDateString()
+                'start'   => now()->startOfDay()->toDateString(),
+                'end'     => now()->endOfDay()->toDateString()
             ]
         ];
-        return $this->call(null, $params);
+
+        $response = $this->call(null, $params);
+
+        return $response->getBody()['visitors'];
     }
 
 }
