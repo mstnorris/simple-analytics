@@ -3,6 +3,7 @@
 namespace Mstnorris\SimpleAnalytics;
 
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 
 class SimpleAnalytics
 {
@@ -13,26 +14,37 @@ class SimpleAnalytics
         $this->client = $client;
     }
 
-    public function call($uri, $params = [], $method = 'GET')
+    public function call($uri = null, $params = [], $method = 'GET'): ResponseInterface
     {
-        return $this->client->request($method, $uri, $params);
-    }
+        $uri ??= sprintf('%s.json', config('simple-analytics.website'));
 
-    public function stats()
-    {
-        $uri = sprintf('%s.json', config('simple-analytics.website'));
-
-        $params = [
+        $defaultParams = [
             'query' => [
                 'version' => config('simple-analytics.api-version', 5),
-                'fields' => 'histogram',
-                'info' => false,
-                'start' => '2021-11-17',
-                'end' => '2021-12-17'
+                'fields'  => 'visitors',
+                'info'    => 'false',
+                'start'   => '2021-11-17',
+                'end'     => '2021-12-17'
             ]
         ];
 
-        return $this->client->request('GET', $uri, $params);
+        return $this->client->request($method, $uri, array_merge($defaultParams, $params));
+    }
+
+    public function stats(): ResponseInterface
+    {
+        return $this->call();
+    }
+
+    public function today(): ResponseInterface
+    {
+        $params = [
+            'query' => [
+                'start'   => now()->toDateString(),
+                'end'     => now()->toDateString()
+            ]
+        ];
+        return $this->call(null, $params);
     }
 
 }
