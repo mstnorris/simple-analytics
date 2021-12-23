@@ -23,11 +23,13 @@ class SimpleAnalytics
         $uri = sprintf('%s.json', config('simple-analytics.website'));
 
         $params = [
-            'version' => config('simple-analytics.api-version', 5),
-            'fields' => 'histogram',
-            'info' => false,
-            'start' => '2021-11-17',
-            'end' => '2021-12-17'
+            'query' => [
+                'version' => config('simple-analytics.api-version', 5),
+                'fields' => 'histogram',
+                'info' => false,
+                'start' => '2021-11-17',
+                'end' => '2021-12-17'
+            ]
         ];
 
         return $this->client->request('GET', $uri, $params);
